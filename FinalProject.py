@@ -60,5 +60,3 @@ def User_defined_dataset(chosen_name):
        else:
           st.write('Note: Please upload a csv file')
     return X, y, X_name, X1
-
-X, y, X_name, cat_var = User_defined_dataset(chosen)
