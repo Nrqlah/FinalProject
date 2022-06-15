@@ -13,15 +13,15 @@ chosen = st.sidebar.radio('Choose a dataset', ('Default','User-defined'), index=
 # Split default data in features and target varibles
 
 def default_dataset(name):
-  data = None
+  dataset = None
   if name == 'Diabetes':
-     data = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/diabetes.csv')
+     dataset = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/diabetes.csv')
 
   else:
-     data = data.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/student_mat.csv')
+     dataset = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/student_mat.csv')
     
-  X = data.data
-  y = data.target
+  X = dataset.data
+  y = dataset.target
   
   return X, y
     
