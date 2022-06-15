@@ -7,64 +7,68 @@ st.write('''#Trying my best''')
 
 st.sidebar.header('User Input Parameter')
 st.sidebar.subheader('''Please upload custom data in csv format''')
+
+# User category dataset
  
 chosen = st.sidebar.radio('Choose a dataset', ('Default','User-defined'), index=0)
 
-# Split default data in features and target varibles
+# Function for default dataset (A, A element in C)
 
 def default_dataset(name):
   dataset = None
   if name == 'Diabetes':
-     dataset = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/diabetes.csv')
-
+       dataset = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/diabetes.csv')
+  
   else:
-     dataset = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/student_mat.csv')
+       dataset = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/student_mat.csv')
     
   X = dataset.data
   y = dataset.target
   
-  return X, y
+  return X ,y 
     
-
+# Function for user select data category (C, set C)
+  
 def User_defined_dataset(chosen_name):
     X = []
     y = []
-    X_name = []
+    X_features = []
     X1 = []
   
     if chosen_name == 'Default':
        dataset_name = st.sidebar.selectbox('Select Dataset',('Diabetes','Students'))
-       X, y = default_dataset(dataset_name)
-       X_name = X
+       X , y = default_dataset(dataset_name)  # A
+       X_features = X 
+    # user to upload file (B)
     else:
        upload_file = st.sidebar.file_uploader('Upload a csv',type='csv')
-    
        if upload_file!=None:
           st.write(uplod_file)
           data = pd.read_csv(upload_file)
-  
-          y_name = st.sidebar.selectbox('Select a y variable',sorted(data))
-          X_name = st.sidebar.multiselect('Select the x variable(s)',
-                                          sorted(data)[1],
-                                          help='You may select more than one varible')  
-          y = data.loc[:,y_name]
-          X = data.loc[:,X_name]
+          y_target = st.sidebar.selectbox('Select a y variable',sorted(data))
+          X_features = st.sidebar.multiselect('Select the x variable(s)',
+                                               sorted(data)[1],
+                                               help='You may select more than one variable')  
+          y = data.loc[:,y_name]    # declare the y variable
+          X = data.loc[:,X_name]    # declare the x variable(s)
           X1 = X.select_dtypes(include=['object'])
           X2 = X.select_dtypes(exclude=['object'])
-  
-          if sorted(X1)!=[]:
-             X1 = X1.apply(LabelEncoder().fit_transform)
-             X = pd.concat([X2,X1],axis=1)
     
-          y = LabelEncoder().fit_transform(y)
-  
+          if sorted(X1)!=[]:
+             X1 = X1.apply(LabelEncoder().fit_transform)   # Transform x categorical into discrete
+             X = pd.concat([X2,X1],axis=1)
+          
+          y = LabelEncoder().fit_transform(y)              # Transform y categorical into discrete
+    
        else:
           st.write('Note: Please upload a csv file')
-    return X, y, X_name, X1
+    return X ,y ,X_features ,X1 
    
-X, y, X_name, cat_var = User_defined_dataset(chosen)
+X ,y ,X_features ,user_category = User_defined_dataset(chosen )
 
-classifier = st.sidebar.selectbox('Select classifier',('KNN','SVM','Random Forest'))
+# classifier model set up
+
+classifiers = st.sidebar.selectbox('Select classifier',('KNN','SVM','Random Forest'))
                                                       
 ## Testing and Training set
                                                        
