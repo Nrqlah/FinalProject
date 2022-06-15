@@ -11,10 +11,10 @@ chosen = st.sidebar.radio('Choose a dataset', ('Default','User-defined'), index=
 
 def default_dataset(name):
   data = None
-  if name == 'Iris':
-     data = data.load_iris()
+  if name == 'Diabetes':
+     data = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/diabetes.csv')
   else:
-     data = data.load_wine()
+     data = data.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/student_mat.csv')
   X = data.data
   y = data.target
   return X, y
@@ -27,7 +27,7 @@ def User_defined_dataset(chosen_name):
     X1 = []
   
     if chosen_name == 'Default':
-       dataset_name = st.sidebar.selectbox('Select Dataset',('Iris','Wine'))
+       dataset_name = st.sidebar.selectbox('Select Dataset',('Diabetes','Students'))
        X, y = default_dataset(dataset_name)
        X_name = X
     else:
