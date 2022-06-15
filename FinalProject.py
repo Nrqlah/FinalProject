@@ -5,9 +5,9 @@ st.title('Final Project')
 st.write('''#Trying my best''')
 
 st.sidebar.header('User Input Parameter')
-st.sidebar.subheader('Please upload custom data in csv format')
+st.sidebar.subheader('''Please upload custom data in csv format''')
  
-choice = st.sidebar.radio('Choose a dataset',('Default','User-defined'),index=0)
+chosen = st.sidebar.radio('Choose a dataset', ('Default','User-defined'), index=0)
 
 def default_dataset(name):
   data = None
@@ -55,3 +55,5 @@ def User_defined_dataset(chosen_name):
        else:
           st.write('Note: Please upload a csv file')
     return X, y, X_name, X1
+
+   X, y, X_name, cat_var = User_defined_dataset(chosen)
