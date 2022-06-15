@@ -64,7 +64,7 @@ def User_defined_dataset(chosen_name):
    
 X, y, X_name, cat_var = User_defined_dataset(chosen)
 
-classifier = st.sidebar.selectbox('Select classifier',('KNN','SVM',"Random Forest'))
+classifier = st.sidebar.selectbox('Select classifier',('KNN','SVM','Random Forest'))
                                                       
 ## Testing and Training set
                                                        
