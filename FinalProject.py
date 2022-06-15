@@ -17,9 +17,9 @@ chosen=st.sidebar.radio('Choose a dataset', ('Default','User-defined'), index=0)
 def default_dataset(name):
   dataset=None
   if name=='Diabetes':
-       dataset=pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/diabetes.csv')
+       dataset=pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/diabetes.csv',sep=',')
   else:
-       dataset=pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/student_mat.csv')
+       dataset=pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/student_mat.csv',sep=';')
   X = dataset.data
   y = dataset.target
   
