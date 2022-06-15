@@ -15,13 +15,11 @@ chosen=st.sidebar.radio('Choose a dataset', ('Default','User-defined'), index=0)
 # Function for default dataset (A, A element in C)
 
 def default_dataset(name):
-  dataset = None
-  if name == 'Diabetes':
-       dataset = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/diabetes.csv')
-  
+  dataset=None
+  if name=='Diabetes':
+       dataset=pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/diabetes.csv')
   else:
-       dataset = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/student_mat.csv')
-    
+       dataset=pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/student_mat.csv')
   X = dataset.data
   y = dataset.target
   
@@ -37,8 +35,8 @@ def User_defined_dataset(chosen_name):
   
     if chosen_name == 'Default':
        dataset_name = st.sidebar.selectbox('Select Dataset',('Diabetes','Students'))
-       X , y = default_dataset(dataset_name)  # A
-       X_features = X 
+       X,y=default_dataset(dataset_name)  # A
+       X_features=X 
     # user to upload file (B)
     else:
        upload_file = st.sidebar.file_uploader('Upload a csv',type='csv')
