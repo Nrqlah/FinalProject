@@ -69,7 +69,7 @@ classifier = st.sidebar.selectbox('Select classifier',('KNN','SVM','Random Fores
 ## Testing and Training set
                                                        
 test_ratio = st.sidebar.slider('Select testing set size',min_value=0.1,max_value=0.3,value=0.2)                                  
-random_state = s.sidebar.slider('Select random state',1,9999,value=1234)
+random_state = st.sidebar.slider('Select random state',1,9999,value=1234)
                                                        
 st.write('## 1: Summary of X variables')
                                                        
