@@ -12,9 +12,9 @@ choice = st.sidebar.radio('Choose a dataset',('Default','User-defined'),index=0)
 def default_dataset(name):
   data = None
   if name == 'Iris':
-    data = dataset.load_iris()
+     data = dataset.load_iris()
   else:
-    data = dataset.load_wine()
+     data = dataset.load_wine()
   X = data.data
   y = data.target
   return X, y
@@ -26,7 +26,7 @@ def User_defined_dataset(chosen_name):
   X_name = []
   X1 = []
   
-  if choice_name == 'Default':
+  if chosen_name == 'Default':
      dataset_name = st.sidebar.selectbox('Select Dataset',('Iris','Wine'))
      X, y = default_dataset(dataset_name)
      X_name = X
