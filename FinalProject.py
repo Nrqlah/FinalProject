@@ -15,12 +15,12 @@ def default_dataset(name):
   data = None
   if name == 'Diabetes':
      data = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/diabetes.csv')
-     X = pd.DataFrame(data.data,columns=data.feature_names)
-     y = pd.DataFrame(data.target, columns=['diabetes.value'])
+
   else:
      data = data.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/student_mat.csv')
-     X = pd.DataFrame(data.data,columns=data.feature_names)
-     y = pd.DataFrame(data.target, columns=['G3'])
+    
+  X = data.data
+  y = data.target
   
   return X, y
     
