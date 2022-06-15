@@ -21,8 +21,6 @@ def User_defined_dataset(chosen_name):
     X1 = []
   
     upload_file = st.sidebar.file_uploader('Upload a csv',type='csv')
-        if upload_file!=None:
-           st.write(uplod_file)
            data=pd.read_csv(upload_file)
            y_target = st.sidebar.selectbox('Select a y variable',sorted(data))
            X_features = st.sidebar.multiselect('Select the x variable(s)',
