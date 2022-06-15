@@ -9,14 +9,19 @@ st.sidebar.subheader('''Please upload custom data in csv format''')
  
 chosen = st.sidebar.radio('Choose a dataset', ('Default','User-defined'), index=0)
 
+# Split default data in features and target varibles
+
 def default_dataset(name):
   data = None
   if name == 'Diabetes':
      data = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/diabetes.csv')
+     X = pd.DataFrame(data.data,columns=data.feature_names)
+     y = pd.DataFrame(data.target, columns=['diabetes.value'])
   else:
      data = data.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/student_mat.csv')
-  X = data
-  y = data.Indicator
+     X = pd.DataFrame(data.data,columns=data.feature_names)
+     y = pd.DataFrame(data.target, columns=['G3'])
+  
   return X, y
     
 
