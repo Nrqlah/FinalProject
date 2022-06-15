@@ -10,7 +10,7 @@ st.sidebar.subheader('''Please upload custom data in csv format''')
 
 # User category dataset
  
-chosen = st.sidebar.radio('Choose a dataset', ('Default','User-defined'), index=0)
+chosen=st.sidebar.radio('Choose a dataset', ('Default','User-defined'), index=0)
 
 # Function for default dataset (A, A element in C)
 
@@ -44,13 +44,13 @@ def User_defined_dataset(chosen_name):
        upload_file = st.sidebar.file_uploader('Upload a csv',type='csv')
        if upload_file!=None:
           st.write(uplod_file)
-          data = pd.read_csv(upload_file)
+          data=pd.read_csv(upload_file)
           y_target = st.sidebar.selectbox('Select a y variable',sorted(data))
           X_features = st.sidebar.multiselect('Select the x variable(s)',
                                                sorted(data)[1],
                                                help='You may select more than one variable')  
-          y = data.loc[:,y_name]    # declare the y variable
-          X = data.loc[:,X_name]    # declare the x variable(s)
+          y = data.loc[:,y_target]    # declare the y variable
+          X = data.loc[:,X_features]    # declare the x variable(s)
           X1 = X.select_dtypes(include=['object'])
           X2 = X.select_dtypes(exclude=['object'])
     
@@ -64,7 +64,7 @@ def User_defined_dataset(chosen_name):
           st.write('Note: Please upload a csv file')
     return X ,y ,X_features ,X1 
    
-X ,y ,X_features ,user_category = User_defined_dataset(chosen )
+X,y,X_features,user_category=User_defined_dataset(chosen)
 
 # classifier model set up
 
