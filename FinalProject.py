@@ -21,7 +21,7 @@ if upload_file!=None:
   X1 = X.select_dtypes(include=['object'])
   X2 = X.select_dtypes(exclude=['object'])
   
-  if sorted(X1)!-[]:
+  if sorted(X1)!=[]:
     X1 = X1.apply(LabelEncoder().fit_transform)
     X = pd.concat([X2,X1],axis=1)
     
