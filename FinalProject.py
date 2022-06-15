@@ -15,8 +15,8 @@ def default_dataset(name):
      data = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/diabetes.csv')
   else:
      data = data.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/student_mat.csv')
-  X = data.data
-  y = data.target
+  X = data
+  y = data.Indicator
   return X, y
     
 
