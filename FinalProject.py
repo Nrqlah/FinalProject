@@ -12,6 +12,9 @@ from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 
+from sklearn.metrics import classification_report
+from matplotlib import pyplot as plt
+
 st.write('## FINAL PROJECT:')
 st.title('Classification Machine Learning Web App')
 st.write('### Bismillah')
@@ -136,3 +139,69 @@ def get_classifier(classifier_name, par):
     return clf
 
 clf = get_classifier(classifier, par)
+
+
+#---------------------------------------------------
+# Report
+st.write("## 3: Classification Report")
+
+if len(X)!=0 and len(y)!=0: 
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_data_ratio, random_state=random_state)
+
+  scaler = StandardScaler()
+  X_train_scaled = scaler.fit_transform(X_train)
+  X_test_scaled = scaler.transform(X_test)    
+
+  clf.fit(X_train_scaled, y_train)
+  y_pred = clf.predict(X_test_scaled)
+
+
+  st.write('Classifier:',classifier)
+  st.write('Classification report:')
+  report = classification_report(y_test, y_pred,output_dict=True)
+  df = pd.DataFrame(report).transpose()
+  st.write(df)
+
+else: 
+   st.write("<font color='Aquamarine'>Note: No classification report generated.</font>", unsafe_allow_html=True)
+
+
+#----------------------------------
+# Matplot
+st.write("## 4: Principal Component Analysis Plot")
+suitable = 1
+if len(X_names) <2:
+  st.write("<font color='Aquamarine'>Note: No PCA plot as it requires at least two predictors.</font>", unsafe_allow_html=True)
+  suitable = 0
+else:
+    for names in X_names:
+        if names in cat_var:
+           st.write("<font color='Aquamarine'>Note: No PCA plot as it only supports numerical predictors.</font>", unsafe_allow_html=True)
+           suitable = 0
+           break
+
+if suitable == 1:
+   pca = PCA(2)
+   X_projected = pca.fit_transform(X)
+
+   x1 = X_projected[:, 0]
+   x2 = X_projected[:, 1]
+
+   fig = plt.figure()
+   plt.scatter(x1, x2,
+               c=y, alpha=0.8,
+               cmap='viridis')
+
+   plt.xlabel('Principal Component 1')
+   plt.ylabel('Principal Component 2')
+   plt.colorbar()
+   st.pyplot(fig)
+            
+            
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
