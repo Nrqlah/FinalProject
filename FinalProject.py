@@ -22,8 +22,6 @@ def default_dataset(data_name):
     dataset = None
     if data_name == 'Breast Cancer':
         dataset = ds.load_breast_cancer()
-    elif data_name == 'Linnerud':
-        datset = ds.load_linnerud(*,return_X_y=True,as_frame=True,)
     else:
         dataset = ds.load_iris()
     X = dataset.data
@@ -40,7 +38,7 @@ def user_defined_dataset(category):
     if category == 'Default':
        dataset_selection = st.sidebar.selectbox(
                             'Select Dataset',
-                            ('Breast Cancer', 'Linnerud', 'Iris'))
+                            ('Breast Cancer', 'Iris'))
        X, y = default_dataset(dataset_selection)
        X_features = X
     # User self-upload dataset (B)
