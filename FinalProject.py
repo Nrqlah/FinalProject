@@ -13,8 +13,6 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.metrics import classification_report
-pip install matplotlib
-import matplotlib.pyplot as plt
 
 st.write('## FINAL PROJECT:')
 st.title('Classification Machine Learning Web App')
