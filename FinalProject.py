@@ -30,8 +30,10 @@ def default_dataset(data_name):
     dataset = None
     if data_name == 'Breast Cancer':
         dataset = ds.load_breast_cancer()
-    else:
+    elif data_name == 'Iris':
         dataset = ds.load_iris()
+    else:
+        dataset = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/student_mat.csv', sep=';')
     X = dataset.data
     y = dataset.target
     return X, y
@@ -46,7 +48,7 @@ def user_defined_dataset(category):
     if category == 'Default':
        dataset_selection = st.sidebar.selectbox(
                             'Select Dataset',
-                            ('Breast Cancer', 'Iris'))
+                            ('Breast Cancer', 'Iris','Student'))
        X, y = default_dataset(dataset_selection)
        X_features = X
     # User self-upload dataset (B)
