@@ -169,6 +169,22 @@ else:
 # The effected factor
 st.subheader(' 4: The Effected Factor')
 
-importance_feature = pd.DataFrame({'Factor':list(X.columns),'Importances':clf.feature_importances_})
-importance_feature.sort_values(by=['Importances'], ascending=False, inplace=True)
-importance_feature
+import time
+
+start_time = time.time()
+importances = clf.feature_importances_
+std = np.std([tree.feature_importances_ for tree in clf.estimators_], axis=0)
+elapsed_time = time.time() - start_time
+
+print(f"Elapsed time to compute the importances: {elapsed_time:.3f} seconds")
+
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+clf_importances = pd.Series(importances, index=X_features)
+
+fig, ax = plt.subplots()
+clf_importances.plot.bar(yerr=std, ax=ax)
+ax.set_title("Feature importances using MDI")
+ax.set_ylabel("Mean decrease in impurity")
+fig.tight_layout()
