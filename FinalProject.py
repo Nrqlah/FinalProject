@@ -22,7 +22,7 @@ def default_dataset(data_name):
     if data_name == 'Breast Cancer':
         dataset = ds.load_breast_cancer()
     elif data_name == 'Digits':
-        datset = ds.load_digits()
+        datset = ds.load_linnerud()
     else:
         dataset = ds.load_iris()
     X = dataset.data
