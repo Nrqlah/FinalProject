@@ -6,7 +6,7 @@ from sklearn import datasets as ds  # data available are iris, digits, wine, bre
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
-st.header('FINAL PROJECT:')
+st.write('### FINAL PROJECT:')
 st.title('Classification Machine Learning Web App')
 st.write('# Bismillah')
 
@@ -21,8 +21,8 @@ def default_dataset(data_name):
     dataset = None
     if data_name == 'Breast Cancer':
         dataset = ds.load_breast_cancer()
-    elif data_name == 'Digits':
-        datset = ds.load_linnerud()
+    elif data_name == 'Linnerud':
+        datset = ds.load_linnerud(*,return_X_y=True,as_frame=True,)
     else:
         dataset = ds.load_iris()
     X = dataset.data
@@ -39,7 +39,7 @@ def user_defined_dataset(category):
     if category == 'Default':
        dataset_selection = st.sidebar.selectbox(
                             'Select Dataset',
-                            ('Breast Cancer', 'Digits', 'Iris'))
+                            ('Breast Cancer', 'Linnerud', 'Iris'))
        X, y = default_dataset(dataset_selection)
        X_features = X
     # User self-upload dataset (B)
@@ -70,3 +70,62 @@ def user_defined_dataset(category):
     return X,y, X_features, X1
 
 X, y , X_features, cat_var= user_defined_dataset (selector)
+
+# ------------------------------------
+classifier = st.sidebar.selectbox('Select classifier',('KNN', 'SVM', 'Random Forest'))
+
+test_ratio = st.sidebar.slider('Select testing size or ratio', min_value= 0.10, max_value = 0.30, value=0.2)
+random_state = st.sidebar.slider('Select random state range', 1, 9999,value=5555)
+
+
+# Summary of X
+st.subheader(' 1: Summary of X variables')
+if len(X)==0:
+   st.write("<font color='Aquamarine'>Note: Predictors @ X variables have not been selected.</font>", unsafe_allow_html=True)
+else:
+   st.write('Shape of predictors @ X variables :', X.shape)
+   st.write('Summary of predictors @ X variables:', pd.DataFrame(X).describe())
+
+    
+# Summary of y
+st.subheader(' 2: Summary of y variable')
+if len(y)==0:
+   st.write("<font color='Aquamarine'>Note: Label @ y variable has not been selected.</font>", unsafe_allow_html=True)
+elif len(np.unique(y)) <5:
+     st.write('Number of classes:', len(np.unique(y)))
+
+else: 
+   st.write("<font color='red'>Warning: System detects an unusual number of unique classes. Please make sure that the label @ y is a categorical variable. Ignore this warning message if you are sure that the y is a categorical variable.</font>", unsafe_allow_html=True)
+   st.write('Number of classes:', len(np.unique(y)))
+
+    
+# Classifier selection
+def add_parameter_ui(clf_name):
+    params = dict()
+    if clf_name == 'SVM':
+        C = st.sidebar.slider('C', 0.01, 10.0,value=1.0)
+        params['C'] = C
+    elif clf_name == 'KNN':
+        K = st.sidebar.slider('K', 1, 15,value=5)
+        params['K'] = K
+    else:
+        max_depth = st.sidebar.slider('max_depth', 2, 15,value=5)
+        params['max_depth'] = max_depth
+        n_estimators = st.sidebar.slider('n_estimators', 1, 100,value=10)
+        params['n_estimators'] = n_estimators
+    return params
+
+params = add_parameter_ui(classifier_name)
+
+def get_classifier(clf_name, params):
+    clf = None
+    if clf_name == 'SVM':
+        clf = SVC(C=params['C'])
+    elif clf_name == 'KNN':
+        clf = KNeighborsClassifier(n_neighbors=params['K'])
+    else:
+        clf = clf = RandomForestClassifier(n_estimators=params['n_estimators'], 
+            max_depth=params['max_depth'], random_state=random_state)
+    return clf
+
+clf = get_classifier(classifier, params)
