@@ -167,7 +167,6 @@ else:
 
 #-----------------------------------------------------------
 # Matplot
-pip install matplotlib
 
 
 st.write("## 4: Principal Component Analysis Plot")
