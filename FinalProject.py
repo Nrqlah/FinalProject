@@ -30,12 +30,16 @@ def default_dataset(data_name):
     dataset = None
     if data_name == 'Breast Cancer':
         dataset = ds.load_breast_cancer()
+        X = dataset.data
+        y = dataset.target
     elif data_name == 'Iris':
         dataset = ds.load_iris()
+        X = dataset.data
+        y = dataset.target
     else:
         dataset = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/student_mat.csv', sep=';')
-    X = dataset.data
-    y = dataset.target
+        X = dataset.drop(['G3'],axis=1)
+        y = dataset.target['G3']
     return X, y
   
 # Dataset processor (C)
