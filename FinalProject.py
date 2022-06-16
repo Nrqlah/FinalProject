@@ -13,7 +13,6 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.metrics import classification_report
-from matplotlib import pyplot as plt
 
 st.write('## FINAL PROJECT:')
 st.title('Classification Machine Learning Web App')
@@ -164,44 +163,3 @@ if len(X)!=0 and len(y)!=0:
 
 else: 
    st.write("<font color='Aquamarine'>Note: No classification report generated.</font>", unsafe_allow_html=True)
-
-
-#----------------------------------
-# Matplot
-st.write("## 4: Principal Component Analysis Plot")
-suitable = 1
-if len(X_names) <2:
-  st.write("<font color='Aquamarine'>Note: No PCA plot as it requires at least two predictors.</font>", unsafe_allow_html=True)
-  suitable = 0
-else:
-    for names in X_names:
-        if names in cat_var:
-           st.write("<font color='Aquamarine'>Note: No PCA plot as it only supports numerical predictors.</font>", unsafe_allow_html=True)
-           suitable = 0
-           break
-
-if suitable == 1:
-   pca = PCA(2)
-   X_projected = pca.fit_transform(X)
-
-   x1 = X_projected[:, 0]
-   x2 = X_projected[:, 1]
-
-   fig = plt.figure()
-   plt.scatter(x1, x2,
-               c=y, alpha=0.8,
-               cmap='viridis')
-
-   plt.xlabel('Principal Component 1')
-   plt.ylabel('Principal Component 2')
-   plt.colorbar()
-   st.pyplot(fig)
-            
-            
-hide_streamlit_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
