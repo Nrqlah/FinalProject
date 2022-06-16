@@ -5,6 +5,7 @@ import pandas as pd
 from sklearn import datasets as ds  # data available are iris, digits, wine, breast_cancer, diabetes (reg)
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import StandardScaler
 
 st.write('### FINAL PROJECT:')
 st.title('Classification Machine Learning Web App')
