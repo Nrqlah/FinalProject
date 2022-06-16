@@ -7,9 +7,14 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 
-st.write('### FINAL PROJECT:')
+from sklearn.decomposition import PCA
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
+
+st.write('## FINAL PROJECT:')
 st.title('Classification Machine Learning Web App')
-st.write('# Bismillah')
+st.write('### Bismillah')
 
 st.sidebar.header('User Input Parameter')
 st.sidebar.caption('You may select the data category below')
@@ -71,6 +76,7 @@ def user_defined_dataset(category):
 X, y , X_features, cat_var= user_defined_dataset (selector)
 
 # ------------------------------------
+# Classidier selector box (E)
 classifier = st.sidebar.selectbox('Select classifier',('KNN', 'SVM', 'Random Forest'))
 
 test_ratio = st.sidebar.slider('Select testing size or ratio', min_value= 0.10, max_value = 0.30, value=0.2)
@@ -80,51 +86,53 @@ random_state = st.sidebar.slider('Select random state range', 1, 9999,value=5555
 # Summary of X
 st.subheader(' 1: Summary of X variables')
 if len(X)==0:
-   st.write("<font color='Aquamarine'>Note: Predictors @ X variables have not been selected.</font>", unsafe_allow_html=True)
+   st.write('Note: X variables have not been selected.', unsafe_allow_html=True)
 else:
-   st.write('Shape of predictors @ X variables :', X.shape)
-   st.write('Summary of predictors @ X variables:', pd.DataFrame(X).describe())
+   st.write('Shape of X variables :', X.shape)
+   st.write('Summary of X variables:', pd.DataFrame(X).describe())
 
     
 # Summary of y
 st.subheader(' 2: Summary of y variable')
 if len(y)==0:
-   st.write("<font color='Aquamarine'>Note: Label @ y variable has not been selected.</font>", unsafe_allow_html=True)
+   st.write('Note: y variable has not been selected.', unsafe_allow_html=True)
 elif len(np.unique(y)) <5:
      st.write('Number of classes:', len(np.unique(y)))
-
 else: 
-   st.write("<font color='red'>Warning: System detects an unusual number of unique classes. Please make sure that the label @ y is a categorical variable. Ignore this warning message if you are sure that the y is a categorical variable.</font>", unsafe_allow_html=True)
+   st.write("<font color='red'>Warning: System detects an unusual number of unique classes. Please make sure that the y variable is a categorical variable. Ignore this warning message if you are sure that the y is a categorical variable.</font>",
+            unsafe_allow_html=True)
    st.write('Number of classes:', len(np.unique(y)))
 
     
-# Classifier selection
-def add_parameter_ui(clf_name):
-    params = dict()
-    if clf_name == 'SVM':
+# Classifier processor (F)
+def parameter(classifier_name):
+    par = dict()
+    if classifier_name == 'SVM':
         C = st.sidebar.slider('C', 0.01, 10.0,value=1.0)
-        params['C'] = C
-    elif clf_name == 'KNN':
+        par['C'] = C
+    elif classifier_name == 'KNN':
         K = st.sidebar.slider('K', 1, 15,value=5)
-        params['K'] = K
+        par['K'] = K
     else:
         max_depth = st.sidebar.slider('max_depth', 2, 15,value=5)
-        params['max_depth'] = max_depth
+        par['max_depth'] = max_depth
         n_estimators = st.sidebar.slider('n_estimators', 1, 100,value=10)
-        params['n_estimators'] = n_estimators
-    return params
+        par['n_estimators'] = n_estimators
+    return par
 
-params = add_parameter_ui(classifier_name)
+par = parameter(classifier)
 
-def get_classifier(clf_name, params):
+#--------------------------------------
+
+def get_classifier(classifier_name, par):
     clf = None
-    if clf_name == 'SVM':
-        clf = SVC(C=params['C'])
-    elif clf_name == 'KNN':
-        clf = KNeighborsClassifier(n_neighbors=params['K'])
+    if classifier_name == 'SVM':
+        clf = SVC(C=par['C'])
+    elif classifier_name == 'KNN':
+        clf = KNeighborsClassifier(n_neighbors=par['K'])
     else:
-        clf = clf = RandomForestClassifier(n_estimators=params['n_estimators'], 
+        clf = RandomForestClassifier(n_estimators=par['n_estimators'], 
             max_depth=params['max_depth'], random_state=random_state)
     return clf
 
-clf = get_classifier(classifier, params)
+clf = get_classifier(classifier, par)
