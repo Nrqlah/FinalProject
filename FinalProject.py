@@ -2,8 +2,9 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 
-from sklearn import datasets as ds
-
+from sklearn import datasets as ds  # data available are iris, digits, wine, breast_cancer, diabetes (reg)
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
 
 st.header('FINAL PROJECT:')
 st.title('Classification Machine Learning Web App')
@@ -18,10 +19,12 @@ selector = st.sidebar.radio('Choose a dataset',('Default', 'User-defined '),inde
 # The default data selection (A, A in element of C)
 def default_dataset(data_name):
     dataset = None
-    if data_name == 'Students':
-        dataset = ds.load_student_mat()
+    if data_name == 'Breast Cancer':
+        dataset = ds.load_breast_cancer()
+    elif data_name == 'Digits':
+        datset = ds.load_digits()
     else:
-        dataset = ds.load_diabetes()
+        dataset = ds.load_iris()
     X = dataset.data
     y = dataset.target
     return X, y
@@ -36,7 +39,7 @@ def user_defined_dataset(category):
     if category == 'Default':
        dataset_selection = st.sidebar.selectbox(
                             'Select Dataset',
-                            ('Students', 'Diabetes'))
+                            ('Breast Cancer', 'Digits', 'Iris'))
        X, y = default_dataset(dataset_selection)
        X_features = X
     # User self-upload dataset (B)
@@ -45,14 +48,14 @@ def user_defined_dataset(category):
         
         if uploaded_file!=None:
            st.write(uploaded_file)
-           data = pd.read_csv(uploaded_file)
-           y_target = st.sidebar.selectbox('Select y variable', sorted(data))
-           X_features = st.sidebar.multiselect('Select x variable(s)', sorted(data), default = sorted(data)[1],
+           uploaded_data = pd.read_csv(uploaded_file)
+           y_target = st.sidebar.selectbox('Select y variable', sorted(uploaded_data))
+           X_features = st.sidebar.multiselect('Select x variable(s)', sorted(uploaded_data), default = sorted(uploaded_data)[1],
                      help = "You may select more than one predictor")
 
            # defines x and y variable
-           y = data.loc[:,y_target]
-           X = data.loc[:,X_features]
+           y = uploaded_data.loc[:,y_target]
+           X = uploaded_data.loc[:,X_features]
            X1 = X.select_dtypes(include=['object'])
            X2 = X.select_dtypes(exclude=['object'])
 
