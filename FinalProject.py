@@ -81,6 +81,7 @@ X, y , X_features, cat_var= user_defined_dataset (selector)
 # Classidier selector box (E)
 classifier = st.sidebar.selectbox('Select classifier',('KNN', 'SVM', 'Random Forest'))
 
+# Slider of test size and random state
 test_ratio = st.sidebar.slider('Select testing size or ratio', min_value= 0.10, max_value = 0.30, value=0.2)
 random_state = st.sidebar.slider('Select random state range', 1, 9999,value=5555)
 
@@ -105,8 +106,8 @@ else:
             unsafe_allow_html=True)
    st.write('Number of classes:', len(np.unique(y)))
 
-    
-# Classifier processor (F)
+#---------------------------------------------    
+# Classifier parameter processor (F)
 def parameter(classifier_name):
     par = dict()
     if classifier_name == 'SVM':
@@ -125,7 +126,7 @@ def parameter(classifier_name):
 par = parameter(classifier)
 
 #--------------------------------------
-
+# Conector between selector and parameter (E & F)
 def get_classifier(classifier_name, par):
     clf = None
     if classifier_name == 'SVM':
@@ -144,9 +145,10 @@ clf = get_classifier(classifier, par)
 # Report
 st.write("## 3: Classification Report")
 
+# Split testing and training
 if len(X)!=0 and len(y)!=0: 
   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_ratio, random_state=random_state)
-
+  # Transform scaled data
   scaler = StandardScaler()
   X_train_scaled = scaler.fit_transform(X_train)
   X_test_scaled = scaler.transform(X_test)    
@@ -154,12 +156,10 @@ if len(X)!=0 and len(y)!=0:
   clf.fit(X_train_scaled, y_train)
   y_pred = clf.predict(X_test_scaled)
 
-
   st.write('Classifier:',classifier)
   st.write('Classification report:')
   report = classification_report(y_test, y_pred,output_dict=True)
   df = pd.DataFrame(report).transpose()
   st.write(df)
-
 else: 
-   st.write("<font color='Aquamarine'>Note: No classification report generated.</font>", unsafe_allow_html=True)
+   st.write('Note: No classification report generated.', unsafe_allow_html=True)
