@@ -145,7 +145,7 @@ clf = get_classifier(classifier, par)
 st.write("## 3: Classification Report")
 
 if len(X)!=0 and len(y)!=0: 
-  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_data_ratio, random_state=random_state)
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_ratio, random_state=random_state)
 
   scaler = StandardScaler()
   X_train_scaled = scaler.fit_transform(X_train)
