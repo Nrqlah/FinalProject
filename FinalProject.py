@@ -165,3 +165,19 @@ if len(X)!=0 and len(y)!=0:
 else: 
    st.write('Note: No classification report generated.', unsafe_allow_html=True)
 
+#-----------------------------------------------------------
+# Matplot
+pip install matplotlib
+
+
+st.write("## 4: Principal Component Analysis Plot")
+suitable = 1
+if len(X_features) <2:
+  st.write("<font color='Aquamarine'>Note: No PCA plot as it requires at least two predictors.</font>", unsafe_allow_html=True)
+  suitable = 0
+else:
+    for names in X_features:
+        if names in cat_var:
+           st.write("<font color='Aquamarine'>Note: No PCA plot as it only supports numerical predictors.</font>", unsafe_allow_html=True)
+           suitable = 0
+           break
