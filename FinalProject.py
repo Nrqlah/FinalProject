@@ -14,7 +14,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.metrics import classification_report
 
-st.write.center(f"### بسم الله الرحمن الرحيم")
+st.write(f"### بسم الله الرحمن الرحيم")
 st.write('## FINAL PROJECT:')
 st.title('Classification Machine Learning Web App')
 
