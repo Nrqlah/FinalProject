@@ -14,11 +14,6 @@ from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.metrics import classification_report
 
-import matplotlib
-matplotlib.use('Agg')
-from matplotlib import pyplot as plt
-
-fixMatplotlib = true
 
 st.write('## FINAL PROJECT:')
 st.title('Classification Machine Learning Web App')
@@ -173,6 +168,10 @@ else:
 
 #-----------------------------------------------------------
 # Matplot
+import matplotlib
+matplotlib.use('agg')
+from matplotlib import pyplot as plt
+
 st.write("## 4: Principal Component Analysis Plot")
 suitable = 1
 if len(X_features) <2:
