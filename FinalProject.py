@@ -178,13 +178,5 @@ elapsed_time = time.time() - start_time
 
 print(f"Elapsed time to compute the importances: {elapsed_time:.3f} seconds")
 
-import matplotlib.pyplot as plt
-%matplotlib inline
-
 clf_importances = pd.Series(importances, index=X_features)
-
-fig, ax = plt.subplots()
-clf_importances.plot.bar(yerr=std, ax=ax)
-ax.set_title("Feature importances using MDI")
-ax.set_ylabel("Mean decrease in impurity")
-fig.tight_layout()
+print(f"Features: {clf_importances}")
