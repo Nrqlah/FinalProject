@@ -144,7 +144,7 @@ clf = get_classifier(classifier, par)
 
 #---------------------------------------------------
 # Report
-st.write("## 3: Classification Report")
+st.subheader(' 3: Classification Report')
 
 # Split testing and training
 if len(X)!=0 and len(y)!=0: 
@@ -167,9 +167,9 @@ else:
 
 #-----------------------------------------------------------
 # Matplot
-pip install matplotlib
 
-st.write("## 4: Principal Component Analysis Plot")
+
+st.subheader(' 4: Principal Component Analysis Plot')
 suitable = 1
 if len(X_features) <2:
   st.write("<font color='Aquamarine'>Note: No PCA plot as it requires at least two predictors.</font>", unsafe_allow_html=True)
