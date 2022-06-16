@@ -166,17 +166,3 @@ else:
    st.write('Note: No classification report generated.', unsafe_allow_html=True)
 
 #----------------------------------------------------
-# The effected factor
-st.subheader(' 4: The Effected Factor')
-
-import time
-
-start_time = time.time()
-importances = clf.feature_importances_
-std = np.std([tree.feature_importances_ for tree in clf.estimators_], axis=0)
-elapsed_time = time.time() - start_time
-
-print(f"Elapsed time to compute the importances: {elapsed_time:.3f} seconds")
-
-clf_importances = pd.Series(importances, index=X_features)
-print(f"Features: {clf_importances}")
