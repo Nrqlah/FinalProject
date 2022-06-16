@@ -136,7 +136,7 @@ def get_classifier(classifier_name, par):
         clf = KNeighborsClassifier(n_neighbors=par['K'])
     else:
         clf = RandomForestClassifier(n_estimators=par['n_estimators'], 
-            max_depth=params['max_depth'], random_state=random_state)
+            max_depth=par['max_depth'], random_state=random_state)
     return clf
 
 clf = get_classifier(classifier, par)
