@@ -39,7 +39,7 @@ def default_dataset(data_name):
     else:
         dataset = pd.read_csv('https://raw.githubusercontent.com/Nrqlah/FinalProject/main/student_mat.csv', sep=';')
         X = dataset.drop(['G3'],axis=1)
-        y = dataset.target['G3']
+        y = dataset['G3']
     return X, y
   
 # Dataset processor (C)
