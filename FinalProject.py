@@ -165,3 +165,10 @@ if len(X)!=0 and len(y)!=0:
 else: 
    st.write('Note: No classification report generated.', unsafe_allow_html=True)
 
+#----------------------------------------------------
+# The effected factor
+st.subheader(' 4: The Effected Factor')
+
+importance_feature = pd.DataFrame({'Factor':list(X.columns),'Importances':clf.feature_importances_})
+importance_feature.sort_values(by=['Importances'], ascending=False, inplace=True)
+importance_feature
