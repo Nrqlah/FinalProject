@@ -57,12 +57,12 @@ def user_defined_dataset(category):
            X2 = X.select_dtypes(exclude=['object'])
 
           # Change categorical value into discrete 
-          if sorted(X1) != []:
-              X1 = X1.apply(LabelEncoder().fit_transform)
-              X = pd.concat([X2,X1],axis=1)
+           if sorted(X1) != []:
+                  X1 = X1.apply(LabelEncoder().fit_transform)
+                  X = pd.concat([X2,X1],axis=1)
            y = LabelEncoder().fit_transform(y)
-        else:
-           st.write('Note: Please upload a CSV file to continue this program.')
+           else:
+                  st.write('Note: Please upload a CSV file to continue this program.')
 
     return X,y, X_features, X1
 
