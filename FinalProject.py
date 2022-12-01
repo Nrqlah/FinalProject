@@ -172,5 +172,3 @@ else:
    st.write('Note: No classification report generated.', unsafe_allow_html=True)
 
 #----------------------------------------------------
-
-streamlit run my_app.py --server.enableCORS=false
